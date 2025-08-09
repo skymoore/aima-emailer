@@ -1,0 +1,6 @@
+assets/
+*.pyc
+__pycache__/
+venv/
+.env
+scripts/
