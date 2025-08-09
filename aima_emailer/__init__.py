@@ -12,6 +12,9 @@ log = logging.getLogger(__name__)
 
 RESEND_API_KEY = getenv("RESEND_API_KEY")
 
+if not RESEND_API_KEY:
+    raise ValueError("RESEND_API_KEY is not set")
+
 __all__ = [
     "RESEND_API_KEY",
 ]

@@ -1,0 +1,10 @@
+assets/
+**/__pycache__/
+**/*.pyc
+venv/
+.env
+scripts/
+deploy/
+.gitignore
+LICENSE
+Dockerfile
