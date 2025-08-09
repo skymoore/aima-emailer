@@ -28,7 +28,12 @@ aimail \
 docker build -t aimail:latest .
 ```
 
-### Example Docker Usage
+#### Pull Image
+```bash
+docker pull ghcr.io/skymoore/aima-emailer:latest
+```
+
+#### Example Docker Usage
 ```bash
 docker run -it --rm \
     --env-file .env \
