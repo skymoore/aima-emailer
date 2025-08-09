@@ -35,7 +35,7 @@ log = getLogger(__name__)
     "--to-email",
     type=str,
     help="Email address of the recipient",
-    default="aima@aima.gov.pt",
+    default="geral@aima.gov.pt",
     required=True,
 )
 @click.option(

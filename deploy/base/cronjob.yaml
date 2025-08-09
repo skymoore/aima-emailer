@@ -30,7 +30,7 @@ spec:
                 - --from-email
                 - "my-address@example.com"
                 - --to-email
-                - "aima@aima.gov.pt"
+                - "geral@aima.gov.pt"
                 - --subject
                 - "Pedido de Atualização de Morada"
                 - --attachment
