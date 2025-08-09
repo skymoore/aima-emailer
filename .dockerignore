@@ -8,3 +8,4 @@ deploy/
 .gitignore
 LICENSE
 Dockerfile
+example.env
