@@ -49,7 +49,14 @@ log = getLogger(__name__)
     "--attachment",
     type=str,
     help="Attachment file path to be sent",
-    required=True,
+    required=False,
+    multiple=True,
+)
+@click.option(
+    "--link",
+    type=str,
+    help="Link to be sent",
+    required=False,
     multiple=True,
 )
 def send(
@@ -64,6 +71,7 @@ def send(
     to_email,
     subject,
     attachment,
+    link,
 ):
     resend.api_key = RESEND_API_KEY
 
@@ -76,31 +84,45 @@ def send(
         passport_number=passport_number,
         correct_address=correct_address,
         contact_number=contact_number,
+        rental_contract_link=link[0],
+        passport_photo_link=link[1],
+        temp_id_link=link[2],
     )
     log.info("Email HTML generated")
 
-    log.info("Loading attachments")
-    attachments: list[resend.Attachment] = []
-    for attachment_path in attachment:
-        log.info(f"Loading attachment: {attachment_path}")
-        f: bytes = open(path.abspath(attachment_path), "rb").read()
-        attachment: resend.Attachment = {
-            "content": list(f),
-            "filename": attachment_path.split("/")[-1],
+    
+    if attachment:
+        log.info("Loading attachments")
+        attachments: list[resend.Attachment] = [] 
+        for attachment_path in attachment:
+            log.info(f"Loading attachment: {attachment_path}")
+            f: bytes = open(path.abspath(attachment_path), "rb").read()
+            attachment: resend.Attachment = {
+                "content": list(f),
+                "filename": attachment_path.split("/")[-1],
+            }
+            attachments.append(attachment)
+
+        log.info("Attachments loaded")
+
+        log.info("Configuring email parameters with attachments")
+        params: resend.Emails.SendParams = {
+            "from": from_email,
+            "to": to_email,
+            "subject": subject,
+            "html": html,
+            "attachments": attachments,
         }
-        attachments.append(attachment)
-
-    log.info("Attachments loaded")
-
-    log.info("Configuring email parameters")
-    params: resend.Emails.SendParams = {
-        "from": from_email,
-        "to": to_email,
-        "subject": subject,
-        "html": html,
-        "attachments": attachments,
-    }
-    log.info("Email parameters configured")
+        log.info("Email parameters configured")
+    else:
+        log.info("Configuring email parameters without attachments")
+        params: resend.Emails.SendParams = {
+            "from": from_email,
+            "to": to_email,
+            "subject": subject,
+            "html": html, 
+        }
+        log.info("Email parameters configured")
 
     log.info("Sending email")
     resend.Emails.send(params)

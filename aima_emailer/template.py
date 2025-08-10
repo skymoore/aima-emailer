@@ -6,6 +6,9 @@ def generate_email_html(
     passport_number,
     correct_address,
     contact_number,
+    rental_contract_link,
+    passport_photo_link,
+    temp_id_link,
 ):
     """
     Generate a formatted HTML email for requesting address update and residence proof.
@@ -97,6 +100,9 @@ def generate_email_html(
                 <h2>Morada correta:</h2>
                 <p>[escreve aqui a tua morada atual, completa]</p>
                 <p>Em anexo envio cópia do meu passaporte, contrato de arrendamento e o recibo comprovativo de pedido de residência.</p>
+                <p><a href="[link para o contrato de arrendamento]">Link para o contrato de arrendamento</a>.</p>
+                <p><a href="[link para a foto do passaporte]">Link para a foto do passaporte</a>.</p>
+                <p><a href="[link para o recibo comprovativo de pedido de residência]">Link para o recibo comprovativo de pedido de residência</a>.</p>
                 <p>Agradeço desde já a atenção e aguardo o vosso retorno com urgência.</p>
                 <p>Com os melhores cumprimentos,</p>
                 <p>[teu nome]</p>
@@ -114,4 +120,7 @@ def generate_email_html(
     html = html.replace("[número do passaporte]", passport_number)
     html = html.replace("[escreve aqui a tua morada atual, completa]", correct_address)
     html = html.replace("[escreve aqui o teu contacto]", contact_number)
+    html = html.replace("[link para o contrato de arrendamento]", rental_contract_link)
+    html = html.replace("[link para a foto do passaporte]", passport_photo_link)
+    html = html.replace("[link para o recibo comprovativo de pedido de residência]", temp_id_link)
     return html
